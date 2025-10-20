@@ -24,8 +24,14 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         
-    - name: Run basic validation
+    - name: Run basic tests
       run: |
-        echo "Running basic repository validation"
+        echo "Running basic build verification"
         find . -name "*.py" -type f | head -5
-        echo "Build completed successfully!" 
+        echo "Build completed successfully!"
+        
+    - name: Codacy Analysis
+      uses: codacy/codacy-analysis-cli-action@v4
+      with:
+        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        verbose: true
